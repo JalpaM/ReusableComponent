@@ -1,0 +1,34 @@
+<div class="other-operation">
+    <div class="selected_all_checkbox">
+        <input type="checkbox" id="selectAll" (change)="selectAll()"/>
+    </div>
+    <div *ngIf="isShowCOunt == true && count > 0" class="selected_device">
+        Selected {{count}}
+    </div>
+    <div *ngIf="isShowCOunt == true && count == 0" class="selected_device">
+        None Selected
+    </div>
+    <div *ngIf="isExportAvailable == true &&count > 0" class="download_btn" (click)="download()">
+        <div class="icon"><img src="assets/images/download.png"/></div>
+        <div>Download Selected</div>
+    </div>
+</div>
+<table cellpadding="5">
+ <tr>
+    <td></td>
+    <td *ngFor="let header of coloumn_name;index as device_index">{{header}}</td>
+ </tr>
+ <tr *ngFor="let device of deviceData;index as device_index" [class.highlighted]="device.checked == true">
+   <td><input type="checkbox" [id]="'device'+device_index" class="selectRow" (change)="select_device(device_index)"/></td>
+   <td>{{device.name}}</td>
+   <td>{{device.device}}</td>
+   <td>{{device.path}}</td>
+   <td>
+        <div *ngIf="device.status == 'Available'">
+            <div class="dot"></div>
+        </div>
+        <div class="status">{{device.status}}</div>
+    </td>
+ </tr>
+ 
+</table>
