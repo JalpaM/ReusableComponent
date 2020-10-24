@@ -1,3 +1,6 @@
+
+<!--Download and count properties are configurable to the component -->
+
 <div class="other-operation">
     <div class="selected_all_checkbox">
         <input type="checkbox" id="selectAll" (change)="selectAll()"/>
@@ -13,6 +16,10 @@
         <div>Download Selected</div>
     </div>
 </div>
+
+
+<!--Created Table reusable Component-->
+
 <table cellpadding="5">
  <tr>
     <td></td>
@@ -25,7 +32,7 @@
    <td>{{device.path}}</td>
    <td>
         <div *ngIf="device.status == 'Available'">
-            <div class="dot"></div>
+            <div class="green-dot"></div>
         </div>
         <div class="status">{{device.status}}</div>
     </td>

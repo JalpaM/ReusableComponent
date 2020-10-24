@@ -1,0 +1,64 @@
+tr:hover {
+  background-color: lightgray; }
+
+tr, th, td {
+  border-bottom: 1px solid lightgray;
+  border-top: 1px solid lightgray;
+  padding: 10px; }
+
+table {
+  width: 100%;
+  text-align: left;
+  font-size: 20px;
+  border-collapse: collapse; }
+
+.green-dot {
+  height: 20px;
+  width: 20px;
+  background-color: #4a9e4a;
+  border-radius: 50%;
+  display: inline-block;
+  float: left; }
+
+input {
+  width: 20px;
+  height: 25px; }
+
+.highlighted {
+  background: lightgray !important; }
+
+.other-operation {
+  margin-bottom: 15px; }
+  .other-operation .selected_all_checkbox {
+    font-size: 25px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    padding-left: 10px;
+    float: left;
+    width: 2%; }
+  .other-operation .selected_device {
+    font-size: 25px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    padding-left: 25px;
+    float: left;
+    width: 15%; }
+  .other-operation .download_btn {
+    font-size: 25px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    cursor: pointer;
+    float: left;
+    width: 40%; }
+    .other-operation .download_btn img {
+      width: 30px; }
+    .other-operation .download_btn .icon {
+      float: left;
+      width: 5%; }
+
+.status {
+  width: 55%;
+  float: left;
+  margin-left: 10px; }
+
+/*# sourceMappingURL=table.component.css.map */
