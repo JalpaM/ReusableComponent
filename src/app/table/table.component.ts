@@ -41,7 +41,7 @@ export class TableComponent implements OnInit {
     this.dataService.selectedDevice([{"key":"download"}])
   }
   checkForAllDeviceSelected(){
-    // if(this.count == this.Available_to_select){
+    // if(this.count == this.availableToSelect){
     //   let ele = document.getElementById("selectAll") as HTMLInputElement;
     //   ele.checked = true;
     // }else{

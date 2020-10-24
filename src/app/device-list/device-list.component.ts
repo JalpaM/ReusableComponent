@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {DataService} from '../service/data.service'
+import {DataService} from '../service/data.service';
 
 @Component({
   selector: 'app-device-list',
@@ -10,106 +10,111 @@ export class DeviceListComponent implements OnInit {
 
   constructor(private dataService: DataService) { }
   public count = 0;
-  public check_all = false;
-  public Available_to_select = 0;
-  public coloum_names = ['Name',"Device","Path","Status"]
-  public device_data = [
-    {name: 'smss.exe', device: 'Stark', path: '\\Device\\HarddiskVolume2\\Windows\\System32\\smss.exe', status: 'Scheduled', checked:false},
-    {name: 'netsh.exe', device: 'Targaryen', path: '\\Device\\HarddiskVolume2\\Windows\\System32\\netsh.exe', status: 'Available', checked:false},
-    {name: 'uxtheme.dll', device: 'Lanniester', path: '\\Device\\HarddiskVolume1\\Windows\\System32\\uxtheme.dll', status: 'Available', checked:false},
-    {name: 'cryptbase.dll', device: 'Martell', path: '\\Device\\HarddiskVolume1\\Windows\\System32\\cryptbase.dll', status: 'Scheduled', checked:false},
-    {name: '7za.exe', device: 'Baratheon', path: '\\Device\\HarddiskVolume1\\temp\\7za.exe', status: 'Scheduled', checked:false}
+  // public check_all = false;
+  public availableToSelect = 0;
+  public columnNames = ['Name', 'Device', 'Path', 'Status'];
+  public deviceData = [
+    {name: 'smss.exe', device: 'Stark', path: '\\Device\\HarddiskVolume2\\Windows\\System32\\smss.exe',
+      status: 'Scheduled', checked: false},
+    {name: 'netsh.exe', device: 'Targaryen', path: '\\Device\\HarddiskVolume2\\Windows\\System32\\netsh.exe',
+      status: 'Available', checked: false},
+    {name: 'uxtheme.dll', device: 'Lanniester', path: '\\Device\\HarddiskVolume1\\Windows\\System32\\uxtheme.dll',
+      status: 'Available', checked: false},
+    {name: 'cryptbase.dll', device: 'Martell', path: '\\Device\\HarddiskVolume1\\Windows\\System32\\cryptbase.dll',
+      status: 'Scheduled', checked: false},
+    {name: '7za.exe', device: 'Baratheon', path: '\\Device\\HarddiskVolume1\\temp\\7za.exe', status: 'Scheduled', checked: false}
   ];
   ngOnInit(): void {
-    this.init()
+    this.init();
     this.dataService.selectAllData$.pipe().subscribe(data => {
-      if(data.length > 0){
-        if(data[0].key == "select_All")
+      if (data.length > 0) {
+        if (data[0].key == 'select_All') {
           this.selectAll(data[0].select_all);
-        else if(data[0].key == "download")
+        } else if (data[0].key == 'download') {
           this.download();
-        else
+ } else {
           this.select_device(data[0].selected_device);
+ }
       }
     });
   }
-  selectAll(isSelectAll){
+  selectAll(isSelectAll) {
     let selected = 0;
-    for(let i=0;i<this.device_data.length; i++){
-      if(isSelectAll == true){
-        var ele = document.getElementById("device"+i) as HTMLInputElement;
+    for (let i = 0; i < this.deviceData.length; i++) {
+      if (isSelectAll ===  true) {
+        const ele = document.getElementById('device' + i ) as HTMLInputElement;
         ele.checked = true;
-        this.device_data[i].checked = true;
+        this.deviceData[i].checked = true;
         selected++;
-      }else{
-        var ele = document.getElementById("device"+i) as HTMLInputElement;
+      } else {
+        const ele = document.getElementById('device' + i) as HTMLInputElement;
         ele.checked = false;
-        this.device_data[i].checked = false;
+        this.deviceData[i].checked = false;
       }
     }
     isSelectAll ? this.count = selected : this.count = 0;
   }
-  select_device(index){
-    if(this.device_data[index].checked !== false){
-      var ele = document.getElementById("device"+index) as HTMLInputElement;
+  select_device(index) {
+    if (this.deviceData[index].checked !== false) {
+      const ele = document.getElementById('device' + index) as HTMLInputElement;
       ele.checked = true;
       this.count++;
-      this.device_data[index].checked = true;
-    }else{
-      var ele = document.getElementById("device"+index) as HTMLInputElement;
+      this.deviceData[index].checked = true;
+    } else {
+      const ele = document.getElementById('device' + index) as HTMLInputElement;
       ele.checked = false;
       this.count--;
-      this.device_data[index].checked = false;
+      this.deviceData[index].checked = false;
     }
     this.checkForAllDeviceSelected();
   }
-  checkForAllDeviceSelected(){
-    if(this.count == this.Available_to_select){
-      let ele = document.getElementById("selectAll") as HTMLInputElement;
+  checkForAllDeviceSelected() {
+    if (this.count === this.availableToSelect) {
+      const ele = document.getElementById('selectAll') as HTMLInputElement;
       ele.indeterminate = false;
       ele.checked = true;
-    }else{
-      let ele = document.getElementById("selectAll") as HTMLInputElement;
+    } else {
+      const ele = document.getElementById('selectAll') as HTMLInputElement;
       ele.indeterminate = true;
-      //document.getElementById('check').indeterminate = true;
     }
   }
-  init(){   
-    this.Available_to_select = this.device_data.length;
+  init() {
+    this.availableToSelect = this.deviceData.length;
   }
-  download(){
-    var selected_device = [];
-    var selected_available_device = [];
-    var selected_device_id = [];
-    var selected_device_path = [];
-    this.device_data.forEach(device => {
-      if(device.checked == true){
-        selected_device_id.push(device.device);
-        selected_device_path.push(device.path);
-        selected_device.push(device);
-        if(device.status === "Available")
-          selected_available_device.push(device);
+  download() {
+    const selectedDevice = [];
+    const selectedAvailableDevice = [];
+    const selectedDeviceId = [];
+    const selectedDevicePath = [];
+    this.deviceData.forEach(device => {
+      if (device.checked === true) {
+        selectedDeviceId.push(device.device);
+        selectedDevicePath.push(device.path);
+        selectedDevice.push(device);
+        if (device.status === 'Available') {
+          selectedAvailableDevice.push(device);
+        }
       }
     });
     // tslint:disable-next-line:max-line-length
-    alert("Selected device(s) are \n"+selected_device_id.join(",")+ "\n\nwith it's respective path locations are \n"+selected_device_path.join(","));
-    if(selected_available_device.length > 0) {
-      var columns = ['Name', 'Device', 'Path', 'Status',];
+    alert('Selected device(s) are \n' + selectedDeviceId.join(',') + '\n\nwith it\'s respective path locations are \n' + selectedDevicePath.join(','));
+    if (selectedAvailableDevice.length > 0) {
+      const columns = ['Name', 'Device', 'Path', 'Status', ];
 
 
-      var result = selected_available_device.map(function(obj) {
-        return columns.map(function(key) {
+      const result = selectedAvailableDevice.map((obj) => {
+        return columns.map((key) => {
           return obj[key.toLowerCase()];
         });
       });
 
       result.unshift(columns);
       console.log(result);
-      let csvContent = "data:text/csv;charset=utf-8," + result.map(e => e.join(",")).join("\n");
-      var encodedUri = encodeURI(csvContent);
-      var link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", "my_data.csv");
+      const csvContent = 'data:text/csv;charset=utf-8,' + result.map(e => e.join(',')).join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', 'my_data.csv');
       document.body.appendChild(link); // Required for FF
 
       link.click();

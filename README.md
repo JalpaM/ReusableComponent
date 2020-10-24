@@ -4,10 +4,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 
 ## Install Dependency
-
+Run  `npm install -g @angular/cli` to install angular globally
 Run `npm install` to download  the project dependency. It will store in node_modules.
-
-
 
 ## Development server
 
